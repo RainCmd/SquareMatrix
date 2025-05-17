@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +26,8 @@ public class Game : MonoBehaviour
     private Square[,] squares;
     private bool[,] values;
 
+    [SerializeField]
+    private AudioSource openAudio, errorAudio;
     [SerializeField]
     private SelectEffect selectEffect;
     private bool mouseDown;
@@ -62,12 +63,22 @@ public class Game : MonoBehaviour
         if (values[coord.x, coord.y])
         {
             square.SetState(SquareState.Unlock);
-            if (!lr) square.SetError(true);
+            if (lr) openAudio.Play();
+            else
+            {
+                square.SetError(true);
+                errorAudio.Play();
+            }
         }
         else
         {
             square.SetState(SquareState.Close);
-            if (lr) square.SetError(true);
+            if (lr)
+            {
+                square.SetError(true);
+                errorAudio.Play();
+            }
+            else openAudio.Play();
         }
         UpdateCardNumberEnable();
     }

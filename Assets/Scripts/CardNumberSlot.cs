@@ -53,7 +53,7 @@ public class CardNumberSlot : MonoBehaviour
     }
     public void SetNumberEnable(int index, bool enable)
     {
-        list[index].color = enable ? Color.cyan : Color.white;
+        list[index].color = enable ? new Color(.2f,.75f,.75f) : Color.white;
         enables[index] = enable;
     }
     public bool IsNumberEnabled(int index) { return enables[index]; }
